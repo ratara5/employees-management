@@ -31,10 +31,10 @@ export const getApplication = async (req, res) => {
 
 export const createApplication = async (req, res) => {
   try {
-    const { codigo, descripcion, resumen, idEmpleado } = req.body;
+    const { codigo, descripcion, resumen, id_empleado } = req.body;
     const { rows } = await pool.query(
       "INSERT INTO SOLICITUDES (codigo, descripcion, resumen, id_empleado) VALUES ($1, $2, $3, $4) RETURNING *;",
-      [codigo, descripcion, resumen, idEmpleado]
+      [codigo, descripcion, resumen, id_empleado]
     );
     res.send({
       rows,
@@ -49,11 +49,11 @@ export const createApplication = async (req, res) => {
 export const updateApplication = async (req, res) => {
   try {
     const { id } = req.params;
-    const { codigo, descripcion, resumen, idEmpleado } = req.body;
+    const { codigo, descripcion, resumen, id_empleado } = req.body;
 
     const { rowCount } = await pool.query(
       "UPDATE SOLICITUDES SET codigo = $1, descripcion = $2, resumen = $3, id_empleado = $4 WHERE id_solicitud = $5;",
-      [codigo, descripcion, resumen, idEmpleado, id]
+      [codigo, descripcion, resumen, id_empleado, id]
     );
     if (rowCount === 0)
       return res.status(404).json({

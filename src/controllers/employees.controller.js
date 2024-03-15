@@ -32,7 +32,7 @@ export const getEmployee = async (req, res) => {
 
 export const createEmployee = async (req, res) => {
   try {
-    const { fechaIngreso, nombre, salario } = req.body;
+    const { fecha_ingreso, nombre, salario } = req.body;
 
     // Do not allow injection
     //// Only letters in field 'nombre'
@@ -49,7 +49,7 @@ export const createEmployee = async (req, res) => {
 
     const { rows } = await pool.query(
       "INSERT INTO EMPLEADOS (fecha_ingreso, nombre, salario) VALUES ($1, $2, $3) RETURNING *;",
-      [fechaIngreso, nombre, salario]
+      [fecha_ingreso, nombre, salario]
     );
     res.send({
       rows,
@@ -64,11 +64,11 @@ export const createEmployee = async (req, res) => {
 export const updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fechaIngreso, nombre, salario } = req.body;
+    const { fecha_ingreso, nombre, salario } = req.body;
 
     const { rowCount } = await pool.query(
       "UPDATE EMPLEADOS SET fecha_ingreso = $1, nombre = $2, salario = $3 WHERE id_empleado = $4;",
-      [fechaIngreso, nombre, salario, id]
+      [fecha_ingreso, nombre, salario, id]
     );
     if (rowCount === 0)
       return res.status(404).json({

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors'
 import bodyParser from 'body-parser';
 import "dotenv/config";
 import indexRoutes from './routes/index.routes.js'
@@ -7,6 +8,7 @@ import applicationsRoutes from './routes/applications.routes.js'
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use(employeesRoutes)
