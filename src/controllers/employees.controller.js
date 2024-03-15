@@ -37,12 +37,18 @@ export const createEmployee = async (req, res) => {
     // Do not allow injection
     //// Only letters in field 'nombre'
     const onlyLettersPattern = /^[A-Za-z]+$/;
-    if(!nombre.match(onlyLettersPattern)){
-        return res.status(400).json({ err: "No special characters and no numbers in the field 'nombre', please!"})
+    if (!nombre.match(onlyLettersPattern)) {
+      return res
+        .status(400)
+        .json({
+          err: "No special characters and no numbers in the field 'nombre', please!",
+        });
     }
     //// Only numbers in field 'salario'
-    if(isNaN(Number(salario))) {
-        return res.status(400).json({ err: "Numbers only in the field 'salario', please!"})
+    if (isNaN(Number(salario))) {
+      return res
+        .status(400)
+        .json({ err: "Numbers only in the field 'salario', please!" });
     }
 
     //// Allowlisting

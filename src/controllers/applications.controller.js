@@ -3,7 +3,9 @@ import { pool } from "../connection.js";
 
 export const getApplications = async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT s.id_solicitud, s.codigo, s.descripcion, s.resumen, e.nombre AS nombre_empleado FROM SOLICITUDES s JOIN EMPLEADOS e ON s.id_empleado = e.id_empleado');
+    const { rows } = await pool.query(
+      "SELECT s.id_solicitud, s.codigo, s.descripcion, s.resumen, e.nombre AS nombre_empleado FROM SOLICITUDES s JOIN EMPLEADOS e ON s.id_empleado = e.id_empleado"
+    );
     res.json(rows);
   } catch (error) {
     return res.status(500).json({
@@ -14,7 +16,8 @@ export const getApplications = async (req, res) => {
 
 export const getApplication = async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT s.id_solicitud, s.codigo, s.descripcion, s.resumen, e.nombre AS nombre_empleado FROM SOLICITUDES s JOIN EMPLEADOS e ON s.id_empleado = e.id_empleado WHERE id_solicitud = $1',
+    const { rows } = await pool.query(
+      "SELECT s.id_solicitud, s.codigo, s.descripcion, s.resumen, s.id_empleado, e.nombre AS nombre_empleado FROM SOLICITUDES s JOIN EMPLEADOS e ON s.id_empleado = e.id_empleado WHERE id_solicitud = $1",
       [req.params.id]
     );
     if (rows.length <= 0)
